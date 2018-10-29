@@ -22,6 +22,14 @@ public class CSVReadNoah {
                 String[] row = csvLine.split(",");
                 resultList.add(row[0]);
                 resultList.add(row[1]);
+                if(row.length>=5){
+                    resultList.add(row[4]);
+
+                }
+                else{
+                    resultList.add("no POI Name available");
+                }
+
             }
         }
         catch (IOException ex) {
