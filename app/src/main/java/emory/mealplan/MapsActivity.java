@@ -45,8 +45,7 @@ import java.io.InputStream;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        GoogleApiClient.OnConnectionFailedListener,LocationListener, GoogleMap.OnMarkerClickListener {
     private GoogleMap mMap;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
@@ -55,7 +54,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 =======
     private Circle radcircle;
     private LocationListener listener;
+<<<<<<< HEAD
 
+>>>>>>> Noah
+=======
 >>>>>>> Noah
     private Marker currentUserLocationMarker;
     private static final int Request_User_Location_Code = 99;
@@ -94,15 +96,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setOnMarkerClickListener(this);
+
         UiSettings mapUI= mMap.getUiSettings();
         mapUI.setZoomControlsEnabled(true);
         InputStream inputStream = getResources().openRawResource(R.raw.garestaurantpois);
         CSVReadNoah csvFile = new CSVReadNoah(inputStream);
         List poiList = csvFile.read();
-        for(int i=2; i<poiList.size()-1;i=i+2){
+        for(int i=3; i<poiList.size()-2;i=i+3){
             Object row=poiList.get(i);
             LatLng newMarker = new LatLng(Double.parseDouble(poiList.get(i+1).toString()),Double.parseDouble(poiList.get(i).toString()));
-            mMap.addMarker(new MarkerOptions().position(newMarker).alpha(1f));
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.title(poiList.get(i+2).toString());
+            markerOptions.position(newMarker);
+
+            mMap.addMarker(markerOptions);
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         {
@@ -132,6 +140,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(emory,15));
 >>>>>>> Noah
         //Circle circle = mMap.addCircle(new CircleOptions().center(emory).radius(1000).strokeColor(Color.BLACK).fillColor(Color.parseColor("#2271cce7")).strokeWidth(0));
+    }
+    public boolean onMarkerClick(Marker marker){
+        Location self=new Location("");
+        self.setLatitude(currentUserLocationMarker.getPosition().latitude);
+        self.setLongitude(currentUserLocationMarker.getPosition().longitude);
+        Location marked=new Location("");
+        marked.setLongitude((marker.getPosition().longitude));
+        marked.setLatitude((marker.getPosition().latitude));
+
+        float distance=self.distanceTo(marked);
+        marker.setSnippet("Distance from current location: "+distance+" meters");
+        return false;
     }
     @Override
     public void onLocationChanged(Location location) {
