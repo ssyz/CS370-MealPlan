@@ -12,6 +12,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
+import android.widget.Toast;
+import com.google.android.gms.location.LocationListener;
+
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,6 +40,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected Context context;
     private Location location;
     private GoogleMap mMap;
+    private GoogleApiClient googleApiClient;
+    private LocationRequest locationRequest;
+    private Location lastLocation;
+    private Circle radcircle;
+    private LocationListener listener;
+    private Marker currentUserLocationMarker;
+    private static final int Request_User_Location_Code = 99;
+    private double latitide, longitude;
+    private int ProximityRadius = 10000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+<<<<<<< HEAD
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -88,6 +106,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(markerOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(emory,15));
         Circle circle = mMap.addCircle(new CircleOptions().center(emory).radius(1000).strokeColor(Color.BLACK).fillColor(Color.parseColor("#2271cce7")).strokeWidth(0));
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        {
+            buildGoogleApiClient();
+
+            mMap.setMyLocationEnabled(true);
+        }
+
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLocation, 15);
+        //MarkerOptions markerOptions = new MarkerOptions();
+       // LatLng emory = new LatLng(33.7925, -84.3240);
+
+        }
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLocation, 15);
+        //MarkerOptions markerOptions = new MarkerOptions();
+        LatLng emory = new LatLng(33.7925, -84.3240);
+        //markerOptions.position(emory);
+        //markerOptions.title("Emory University");
+        //markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        //mMap.addMarker(markerOptions);
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(emory,15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(emory,15));
+        //Circle circle = mMap.addCircle(new CircleOptions().center(emory).radius(1000).strokeColor(Color.BLACK).fillColor(Color.parseColor("#2271cce7")).strokeWidth(0));
     }
 
     public boolean CheckUserLocationPermission()
@@ -97,6 +137,145 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }else{
 
             //Write you code here if permission already given.
+=======
+    public boolean checkUserLocationPermission()
+    {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))
+            {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_User_Location_Code);
+            }
+            else
+            {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_User_Location_Code);
+            }
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        switch (requestCode)
+        {
+            case Request_User_Location_Code:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                    {
+                        if (googleApiClient == null)
+                        {
+                            buildGoogleApiClient();
+                        }
+                        mMap.setMyLocationEnabled(true);
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "Permission Denied...", Toast.LENGTH_SHORT).show();
+                }
+                return;
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+        if(radcircle!=null){
+            radcircle.remove();
+
+        }
+        radcircle = mMap.addCircle(new CircleOptions().center(latLng).radius(1000).strokeColor(Color.BLACK).fillColor(Color.parseColor("#2271cce7")).strokeWidth(0));
+        if (googleApiClient == null)
+        {
+            LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+        }
+
+    }
+    public boolean checkUserLocationPermission()
+    {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))
+            {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_User_Location_Code);
+            }
+            else
+            {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_User_Location_Code);
+            }
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+
+
+
+    protected synchronized void buildGoogleApiClient()
+    {
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
+        googleApiClient.connect();
+    }
+    @Override
+    public void onLocationChanged(Location location) {
+        latitide = location.getLatitude();
+        longitude = location.getLongitude();
+
+        lastLocation = location;
+
+        if (currentUserLocationMarker != null)
+        {
+            currentUserLocationMarker.remove();
+        }
+
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title("user Current Location");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+
+        currentUserLocationMarker = mMap.addMarker(markerOptions);
+
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+        Circle circle = mMap.addCircle(new CircleOptions().center(latLng).radius(1000).strokeColor(Color.BLACK).fillColor(Color.parseColor("#2271cce7")).strokeWidth(0));
+        if (googleApiClient != null)
+        {
+            LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+        }
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        switch (requestCode)
+        {
+            case Request_User_Location_Code:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                    {
+                        if (googleApiClient == null)
+                        {
+                            buildGoogleApiClient();
+                        }
+                        mMap.setMyLocationEnabled(true);
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "Permission Denied...", Toast.LENGTH_SHORT).show();
+                }
+                return;
         }
         return false;
     }
@@ -104,6 +283,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(Location location) {
 
+
+
+    protected synchronized void buildGoogleApiClient()
+    {
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
+        googleApiClient.connect();
     }
 
     @Override
