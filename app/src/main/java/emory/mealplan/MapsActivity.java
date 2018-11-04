@@ -21,10 +21,15 @@ import android.view.View;
 import android.widget.Button;
 >>>>>>> ashwin
 import android.widget.Toast;
+<<<<<<< HEAD
+
+import com.google.android.gms.location.LocationListener;
+=======
 // import android.location.LocationListener;
 
 import com.google.android.gms.location.LocationListener;
 
+>>>>>>> Noah
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -50,8 +55,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
     private Location lastLocation;
+<<<<<<< HEAD
+=======
     private Circle radcircle;
     private LocationListener listener;
+<<<<<<< HEAD
+
+>>>>>>> Noah
+=======
+>>>>>>> Noah
     private Marker currentUserLocationMarker;
     private static final int Request_User_Location_Code = 99;
     private double latitide, longitude;
@@ -69,6 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -90,6 +103,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 >>>>>>> ashwin
+=======
+
+=======
+>>>>>>> Noah
+>>>>>>> master
 
     }
 
@@ -127,16 +145,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             buildGoogleApiClient();
 
             mMap.setMyLocationEnabled(true);
+<<<<<<< HEAD
+        }
+
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLocation, 15);
+        //MarkerOptions markerOptions = new MarkerOptions();
+       // LatLng emory = new LatLng(33.7925, -84.3240);
+=======
 
         }
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLocation, 15);
         //MarkerOptions markerOptions = new MarkerOptions();
         LatLng emory = new LatLng(33.7925, -84.3240);
+>>>>>>> Noah
         //markerOptions.position(emory);
         //markerOptions.title("Emory University");
         //markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         //mMap.addMarker(markerOptions);
+<<<<<<< HEAD
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(emory,15));
+=======
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(emory,15));
+>>>>>>> Noah
         //Circle circle = mMap.addCircle(new CircleOptions().center(emory).radius(1000).strokeColor(Color.BLACK).fillColor(Color.parseColor("#2271cce7")).strokeWidth(0));
     }
     public boolean onMarkerClick(Marker marker){
@@ -282,6 +312,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         currentUserLocationMarker = mMap.addMarker(markerOptions);
 
+<<<<<<< HEAD
+    public boolean checkUserLocationPermission()
+    {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))
+            {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_User_Location_Code);
+            }
+            else
+            {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_User_Location_Code);
+            }
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        switch (requestCode)
+        {
+            case Request_User_Location_Code:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                    {
+                        if (googleApiClient == null)
+                        {
+                            buildGoogleApiClient();
+                        }
+                        mMap.setMyLocationEnabled(true);
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "Permission Denied...", Toast.LENGTH_SHORT).show();
+                }
+                return;
+=======
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
@@ -313,13 +387,58 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         else
         {
             return true;
+>>>>>>> Noah
         }
 >>>>>>> ashwin
     }
 
 
+<<<<<<< HEAD
     @Override
 <<<<<<< HEAD
+=======
+
+
+    protected synchronized void buildGoogleApiClient()
+    {
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
+        googleApiClient.connect();
+    }
+    @Override
+<<<<<<< HEAD
+    public void onLocationChanged(Location location) {
+        latitide = location.getLatitude();
+        longitude = location.getLongitude();
+
+        lastLocation = location;
+
+        if (currentUserLocationMarker != null)
+        {
+            currentUserLocationMarker.remove();
+        }
+
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title("user Current Location");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+
+        currentUserLocationMarker = mMap.addMarker(markerOptions);
+
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+        Circle circle = mMap.addCircle(new CircleOptions().center(latLng).radius(1000).strokeColor(Color.BLACK).fillColor(Color.parseColor("#2271cce7")).strokeWidth(0));
+        if (googleApiClient != null)
+        {
+            LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+        }
+>>>>>>> master
 =======
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
@@ -357,6 +476,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
 
         googleApiClient.connect();
+>>>>>>> Noah
     }
 
 
