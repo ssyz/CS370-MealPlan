@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "833888779913",
+    "firebase_url": "https://mealplan-8c4d4.firebaseio.com",
+    "project_id": "mealplan-8c4d4",
+    "storage_bucket": "mealplan-8c4d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833888779913:android:da87e950d68cb8e1",
+        "android_client_info": {
+          "package_name": "emory.mealplan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833888779913-u13om8n26dnftr2f29s47hbvn892pigp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "emory.mealplan",
+            "certificate_hash": "f75cf24e1c66c0974a449c4e728e6e7188b92b60"
+          }
+        },
+        {
+          "client_id": "833888779913-5e5hl4o80jakb050clb6i8umbrqboh1j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgd7n5Kdjykzp92PINbYYNt2VX8B7nfJU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833888779913-5e5hl4o80jakb050clb6i8umbrqboh1j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
