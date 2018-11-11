@@ -2,21 +2,114 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_text"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".RestaurantInfoView"
     tools:showIn="@layout/activity_restaurant_info_view">
 
-    <TextView
+
+    <EditText
+        android:id="@+id/edit2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/button"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="-114dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:text="Shop Name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
 
+    <EditText
+        android:id="@+id/ph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit2"
+        android:layout_alignStart="@+id/button3"
+        android:layout_marginStart="-37dp"
+        android:layout_marginTop="3dp"
+        android:ems="10"
+        android:inputType="text|phone"
+        android:text="404-567-9876" />
 
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ph"
+        android:layout_alignStart="@+id/edit2"
+        android:layout_marginStart="102dp"
+        android:layout_marginTop="-3dp"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:text="2325 Dooley Drive" />
+
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText4"
+        android:layout_alignStart="@+id/edit2"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="1dp"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:text="Atlanta, GA" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="RESTAURANT VIEW" />
+        android:layout_marginBottom="55dp"
+        android:text="Order with Uber Eats" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="446dp"
+        android:text="View in Google Maps" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="138dp"
+        android:layout_marginTop="550dp"
+        android:text="Leave a Review" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/edit2"
+        android:layout_alignStart="@+id/button"
+        android:layout_marginStart="-24dp"
+        android:layout_marginBottom="-1dp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/edit2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="89dp"
+        android:layout_marginBottom="320dp"
+        android:numStars="5"
+        android:rating="3" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>
