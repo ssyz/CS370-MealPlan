@@ -15,16 +15,15 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
-<<<<<<< HEAD
-
-import com.google.android.gms.location.LocationListener;
-=======
 // import android.location.LocationListener;
 
+import com.ashokvarma.bottomnavigation.BottomNavigationBar;
+import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.google.android.gms.location.LocationListener;
 
->>>>>>> Noah
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -50,19 +49,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
     private Location lastLocation;
-<<<<<<< HEAD
-=======
     private Circle radcircle;
     private LocationListener listener;
-<<<<<<< HEAD
-
->>>>>>> Noah
-=======
->>>>>>> Noah
     private Marker currentUserLocationMarker;
     private static final int Request_User_Location_Code = 99;
     private double latitide, longitude;
     private int ProximityRadius = 10000;
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +73,84 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-<<<<<<< HEAD
 
-=======
->>>>>>> Noah
+        BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
+
+        bottomNavigationBar
+                .addItem(new BottomNavigationItem(R.drawable.ic_location, "Explore").setActiveColor("#1a237e").setInActiveColor("#ffffff"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_list_black_24dp, "List").setActiveColor("#B00020").setInActiveColor("#ffffff"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_deal, "Deals").setActiveColor("#1b5e20").setInActiveColor("#ffffff"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_account, "Account").setActiveColor("#ff8f00").setInActiveColor("#ffffff"))
+                .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)
+                .setMode(BottomNavigationBar.MODE_FIXED)
+                .setFirstSelectedPosition(0)
+                .initialise();
+
+
+
+
+
+         Button infoButton;
+
+        infoButton= (Button) findViewById(R.id.viewinfo);
+        infoButton.setEnabled(true);
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openInfo();
+
+            }
+        });
+
+
+
+
+        bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener(){
+
+            @Override
+            public void onTabSelected(int position) {
+                if(position==0){
+
+                    startActivity(new Intent(MapsActivity.this,MapsActivity.class));
+
+
+
+                }
+
+                if(position==1){
+
+                    startActivity(new Intent(MapsActivity.this,AddReview.class));
+
+
+
+                }
+
+                if(position==2){
+
+                    startActivity(new Intent(MapsActivity.this,RestaurantInfoView.class));
+
+
+                }
+
+                if(position==3){
+
+                    startActivity(new Intent(MapsActivity.this,AddReview.class));
+
+
+                }
+            }
+            @Override
+            public void onTabUnselected(int position) {
+            }
+            @Override
+            public void onTabReselected(int position) {
+            }
+        });
+
+
+
+
 
     }
 
@@ -117,28 +188,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             buildGoogleApiClient();
 
             mMap.setMyLocationEnabled(true);
-<<<<<<< HEAD
-        }
-
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLocation, 15);
-        //MarkerOptions markerOptions = new MarkerOptions();
-       // LatLng emory = new LatLng(33.7925, -84.3240);
-=======
 
         }
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLocation, 15);
         //MarkerOptions markerOptions = new MarkerOptions();
         LatLng emory = new LatLng(33.7925, -84.3240);
->>>>>>> Noah
         //markerOptions.position(emory);
         //markerOptions.title("Emory University");
         //markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         //mMap.addMarker(markerOptions);
-<<<<<<< HEAD
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(emory,15));
-=======
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(emory,15));
->>>>>>> Noah
         //Circle circle = mMap.addCircle(new CircleOptions().center(emory).radius(1000).strokeColor(Color.BLACK).fillColor(Color.parseColor("#2271cce7")).strokeWidth(0));
     }
     public boolean onMarkerClick(Marker marker){
@@ -151,7 +210,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         float distance=self.distanceTo(marked);
         marker.setSnippet("Distance from current location: "+distance+" meters");
+
+
+
+
         return false;
+
+
+
+    }
+
+    public void openInfo(){
+        Intent intent = new Intent(this, RestaurantInfoNew.class);
+        startActivity(intent);
+
+
     }
     @Override
     public void onLocationChanged(Location location) {
@@ -174,50 +247,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         currentUserLocationMarker = mMap.addMarker(markerOptions);
 
-<<<<<<< HEAD
-    public boolean checkUserLocationPermission()
-    {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION))
-            {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_User_Location_Code);
-            }
-            else
-            {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_User_Location_Code);
-            }
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
-    {
-        switch (requestCode)
-        {
-            case Request_User_Location_Code:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                {
-                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-                    {
-                        if (googleApiClient == null)
-                        {
-                            buildGoogleApiClient();
-                        }
-                        mMap.setMyLocationEnabled(true);
-                    }
-                }
-                else
-                {
-                    Toast.makeText(this, "Permission Denied...", Toast.LENGTH_SHORT).show();
-                }
-                return;
-=======
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
@@ -249,53 +278,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         else
         {
             return true;
->>>>>>> Noah
         }
     }
 
-
-
-
-    protected synchronized void buildGoogleApiClient()
-    {
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-
-        googleApiClient.connect();
-    }
     @Override
-<<<<<<< HEAD
-    public void onLocationChanged(Location location) {
-        latitide = location.getLatitude();
-        longitude = location.getLongitude();
-
-        lastLocation = location;
-
-        if (currentUserLocationMarker != null)
-        {
-            currentUserLocationMarker.remove();
-        }
-
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("user Current Location");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-
-        currentUserLocationMarker = mMap.addMarker(markerOptions);
-
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
-        Circle circle = mMap.addCircle(new CircleOptions().center(latLng).radius(1000).strokeColor(Color.BLACK).fillColor(Color.parseColor("#2271cce7")).strokeWidth(0));
-        if (googleApiClient != null)
-        {
-            LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
-        }
-=======
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
         switch (requestCode)
@@ -332,7 +318,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
 
         googleApiClient.connect();
->>>>>>> Noah
     }
 
 
@@ -362,3 +347,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 }
+
