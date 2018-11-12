@@ -182,7 +182,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onLocationChanged(Location location) {
         latitide = location.getLatitude();
         longitude = location.getLongitude();
-
+        if(lastLocation!=location){
+            mMap.clear();
+        }
         lastLocation = location;
 
         if (currentUserLocationMarker != null)
