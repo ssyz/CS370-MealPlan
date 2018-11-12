@@ -34,9 +34,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.io.InputStream;
 import java.util.List;
@@ -53,7 +58,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int Request_User_Location_Code = 99;
     private double latitide, longitude;
     private int ProximityRadius = 10000;
-
+    private DatabaseReference poiData=FirebaseDatabase.getInstance().getReference();
+    private static final double R = 6372.8; // In kilometers
+    private static double convFact=111111;//meters/degree lat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,14 +114,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         InputStream inputStream = getResources().openRawResource(R.raw.garestaurantpois);
         CSVReadNoah csvFile = new CSVReadNoah(inputStream);
         List poiList = csvFile.read();
+
+        LatLngBounds bounds = null;
+        try {
+            bounds = poiBounds(10000,currentUserLocationMarker);
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
+
+        // Query orderedPOIs=poiData.orderByChild("X");
+
+
         for(int i=3; i<poiList.size()-2;i=i+3){
             Object row=poiList.get(i);
             LatLng newMarker = new LatLng(Double.parseDouble(poiList.get(i+1).toString()),Double.parseDouble(poiList.get(i).toString()));
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.title(poiList.get(i+2).toString());
             markerOptions.position(newMarker);
-
-            mMap.addMarker(markerOptions);
+            if(bounds.contains(newMarker)){     
+                mMap.addMarker(markerOptions);
+            }
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         {
@@ -179,7 +198,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 
         currentUserLocationMarker = mMap.addMarker(markerOptions);
+        LatLngBounds bounds = null;
+        try {
+            bounds = poiBounds(10000,currentUserLocationMarker);
+        } catch (InvalidProtocolBufferException e) {
+            e.printStackTrace();
+        }
 
+        // Query orderedPOIs=poiData.orderByChild("X");
+
+        InputStream inputStream = getResources().openRawResource(R.raw.garestaurantpois);
+        CSVReadNoah csvFile = new CSVReadNoah(inputStream);
+        List poiList = csvFile.read();
+
+        for(int i=3; i<poiList.size()-2;i=i+3){
+            Object row=poiList.get(i);
+            LatLng newMarker = new LatLng(Double.parseDouble(poiList.get(i+1).toString()),Double.parseDouble(poiList.get(i).toString()));
+            MarkerOptions markerOption = new MarkerOptions();
+            markerOption.title(poiList.get(i+2).toString());
+            markerOption.position(newMarker);
+            if(bounds.contains(newMarker)){
+                mMap.addMarker(markerOption);
+            }
+        }
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
@@ -279,5 +320,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+    private LatLngBounds poiBounds(double dist, Marker location) throws InvalidProtocolBufferException {
+
+        LatLngBounds bounds=new LatLngBounds(swBound(dist,location),neBound(dist,location));
+
+        return bounds;
+    }
+    private LatLng swBound(double dist, Marker loc) throws InvalidProtocolBufferException {
+        double lat=loc.getPosition().latitude;
+        double lon=loc.getPosition().longitude;
+        LatLng sw=new LatLng((lat-(dist/convFact) ), (lon -Math.cos(lat)*(dist/convFact)));
+        return sw;
+    }
+    private LatLng neBound(double dist, Marker loc) throws InvalidProtocolBufferException {
+        double lat=loc.getPosition().latitude;
+        double lon=loc.getPosition().longitude;
+        LatLng ne=new LatLng((lat+(dist/convFact) ), (lon + Math.cos(lat)*(dist/convFact)));
+        return ne;
+    }
+
 }
 
