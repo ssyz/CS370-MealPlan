@@ -1,6 +1,3 @@
-(This is a readme.md sample for GitHub. It is intended to guide the user to properly install and run our product)
-(Yellow part needs to be finished!!!!!)
-
 # MealPlan
 
 MealPlan is a semester-long project. It is an Android Application for Emory students seeking an innovative approach towards a better end-to-end dining experience. It was fully implemented and pitched on December 5th, 2018 at Emory University.
@@ -10,11 +7,11 @@ MealPlan is a semester-long project. It is an Android Application for Emory stud
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites ---------------To be Finished! (See the yellow part)
+### Prerequisites ---------------To be Finished! (See the TODO parts)
 
-You will need to have an Android Studio properly installed on the computer. Go to [PurpleBooth](https://developer.android.com/studio/) and download the version that is operatable on your computer environment. 
+You will need to have an Android Studio properly installed on the computer. Go [here](https://developer.android.com/studio/) and download the version that is operable on your computer environment. 
 
-After installation of Android Studio, open the ?????????? project file. Before building the project, it is recommended to go to preference/Appearance & Behavior/System Setting/Android SDK and check if you have downloaded the following SDK platforms:
+After installation of Android Studio, open the TODO:filename project file. Before building the project, it is recommended that you go to preference/Appearance & Behavior/System Setting/Android SDK and verify you have downloaded the following SDK platforms:
 ```
 Android 9.0 (Pie)
 Android 5.0 (Lollipop)
@@ -37,11 +34,11 @@ Google Play services
 Google Web Driver
 Support Repository
 ```
----------------------------To be finished!!!!!!!!!!!!!!!!!!!!!!
+------------------TODO:below
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+A step by step series of examples that tell you how to get a development environment running.
 
 Say what the step will be
 
@@ -80,16 +77,14 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 * **Noah Jaffe** - *Software Engineer* - 
 * **Xinru Lu** - *Scrum Master* - 
 * **Ashwin Shukla** - *Software Engineer* - 
-* **Jay Syz** - *Scrum Product Owner* - 
+* **Jay Syz** - *Product Owner* - 
 
 The product belongs to all authors and the authors are sorted alphabetically by last names.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](https://opensource.org/licenses/MIT) file for details.
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-* Inspiration
-* etc
+* Special thanks to [Dr. Dorian Arnold](http://www.mathcs.emory.edu/~darnold/) for guidance and a great semester!
