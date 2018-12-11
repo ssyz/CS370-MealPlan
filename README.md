@@ -1,7 +1,7 @@
 (This is a readme.md sample for GitHub. It is intended to guide the user to properly install and run our product)
 (Yellow part needs to be finished!!!!!)
 
-# CS370-MealPlan
+# MealPlan
 
 MealPlan is a semester-long project. It is an Android Application for Emory students seeking an innovative approach towards a better end-to-end dining experience. It was fully implemented and pitched on December 5th, 2018 at Emory University.
 
