@@ -83,7 +83,7 @@ The product belongs to all authors and the authors are sorted alphabetically by 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://opensource.org/licenses/MIT) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/ssyz/CS370-MealPlan/blob/master/LICENSE.md) file for details.
 
 ## Acknowledgments
 
