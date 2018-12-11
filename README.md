@@ -1,6 +1,6 @@
 # MealPlan
 
-MealPlan is a semester-long project. It is an Android Application for Emory students seeking an innovative approach towards a better end-to-end dining experience. It was fully implemented and pitched on December 5th, 2018 at Emory University.
+MealPlan is an Android Application for Emory students seeking an innovative approach towards a better end-to-end dining experience. It was fully implemented and pitched on December 5th, 2018 at Emory University.
 
 
 ## Getting Started
