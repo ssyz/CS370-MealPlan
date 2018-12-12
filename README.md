@@ -43,16 +43,24 @@ Support Repository
 
 3. Emulator: The application can be launched on any device with Android 9.0 or higher. If you wish to use an emulator, we recommend using a Pixel 2 with API 28. Keep in mind that use of an emulator may reduce functionality, especially the use of the AR mode. While GPS will be functional after your fingerprint is added, Android Studio’s emulated location may not coincide with your computer’s location. Your emulator should be able to emulate GPS coordinates via LAT/LNG data after pressing the “Allow access for current location” option on your emulator. For reference, the approximate longitude and latitude of the Emory MSC are -84.325 and 33.791 respectively. 
 
-4. Add fingerprints: To enable access to the Maps API, we must first add your device fingerprint to the allowed list for the out API key. Click the Logcat tab on the bottom of Android studio. It should be the 3rd tab from the left between Build and TODO. Search fingerprint in the search bar. A code that is mixed with letters and numbers separated by colons should appear. Open a browser with the [URL](https://console.cloud.google.com/apis/credentials?authuser=1&folder=&organizationId=&project=mealplan-370&fbclid=IwAR0HeN_HMQjI2OYzz_E_AMhXcSYcjZzA-XGXo0Pug7wVJK1eHJJutBBa92w). Make sure you are logged in with the mealplan Gmail account. The login should be above. Click the pencil icon and then click “ add a package name and fingerprint”. The Package name is “com.google.firebase.example.fireeats”, and add your fingerprint into the input bar next to the package name. Finally, Click save and re-open the emulator and the map feature is ready to go.
+4. Add fingerprints: To enable access to the Maps API, we must first add your device fingerprint to the allowed list for the out API key. Click the Logcat tab on the bottom of Android studio. It should be the 3rd tab from the left between Build and TODO. Search fingerprint in the search bar. A code that is mixed with letters and numbers separated by colons should appear. Open a browser with the [URL](https://console.cloud.google.com/apis/credentials?authuser=1&folder=&organizationId=&project=mealplan-370&fbclid=IwAR0HeN_HMQjI2OYzz_E_AMhXcSYcjZzA-XGXo0Pug7wVJK1eHJJutBBa92w). Make sure you are logged in with the mealplan Gmail account:
+
+
+```
+User: janxinc370@gmail.com
+Password: practicum
+```
+Click the pencil icon and then click “ add a package name and fingerprint”. The Package name is “com.google.firebase.example.fireeats”, and add your fingerprint into the input bar next to the package name. Finally, Click save and re-open the emulator and the map feature is ready to go.
 
 
 
 ## Built With
 
-* [Firebase](https://firebase.google.com/) - Cloud Database used
+* [Firebase](https://firebase.google.com/) - Cloud Database used. You can access our DB backend at console.firebase.google.com using the email provided above.
 * [GitHub](https://github.com/) - Used for collaborative coding and version control
 * [Google-Play-Services](https://developer.android.com/distribute/play-services/) - Used for Map APIs and a range of other functions
 * [Emory Box](https://emory.account.box.com/) - Used to document the development process
+Other Android specific Third Party Dependencies Used to Build this Project can be found in this project’s app-level Gradle build file.
 
 
 ## Authors and Main Responsibilities
@@ -72,3 +80,13 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 ## Acknowledgments
 
 * Special thanks to [Dr. Dorian Arnold](http://www.mathcs.emory.edu/~darnold/) for guidance and a great semester!
+
+
+
+
+
+
+
+
+
+
